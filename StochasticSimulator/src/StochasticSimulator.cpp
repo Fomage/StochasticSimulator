@@ -7,9 +7,11 @@
 //============================================================================
 
 #include <iostream>
+#include <boost/math/distributions/normal.hpp>
 using namespace std;
+using boost::math::normal;
 
 int main() {
-	cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
+
 	return 0;
 }

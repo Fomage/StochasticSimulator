@@ -25,6 +25,8 @@ public:
 		this->name = name;
 	}
 
+	virtual double getValue(double p)=0;
+
 private:
 	std::string name;
 };

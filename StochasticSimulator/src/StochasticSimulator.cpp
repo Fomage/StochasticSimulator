@@ -1,19 +1,16 @@
-//============================================================================
-// Name        : StochasticSimulator.cpp
-// Author      : Fomage
-// Version     :
-// Copyright   : Your copyright notice
-// Description : Hello World in C++, Ansi-style
-//============================================================================
+/*
+ * StochasticSimulator.cpp
+ *
+ *  Created on: 27 May 2015
+ *      Author: Fomage
+ */
 
-#include <iostream>
-#include <string>
-#include <time.h>
+#include "StochasticSimulator.h"
 #include <cstdlib>
+#include <iostream>
 
-using namespace std;
 
-int main() {
-	srand(time(NULL));
-	return 0;
-}
+
+
+
+

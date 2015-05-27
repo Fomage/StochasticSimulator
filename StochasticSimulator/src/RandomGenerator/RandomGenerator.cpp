@@ -18,6 +18,8 @@ RandomGenerator::~RandomGenerator() {
 
 double RandomGenerator::sample(CDF *f){
 	double p=((double)rand()/(double)RAND_MAX);
+	while((p==0)||(p==1))
+		p=((double)rand()/(double)RAND_MAX);
 	return f->getValue(p);
 }
 

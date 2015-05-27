@@ -7,11 +7,13 @@
 //============================================================================
 
 #include <iostream>
-#include <boost/math/distributions/normal.hpp>
+#include <string>
+#include <time.h>
+#include <cstdlib>
+
 using namespace std;
-using boost::math::normal;
 
 int main() {
-
+	srand(time(NULL));
 	return 0;
 }

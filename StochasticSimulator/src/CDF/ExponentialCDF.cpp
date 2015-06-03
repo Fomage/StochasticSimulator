@@ -19,9 +19,9 @@ ExponentialCDF::~ExponentialCDF() {
 
 double ExponentialCDF::getValue(double p){
 	if((p>0)&&(p<1))
-			return quantile(dist,p);
-		else
-			return 0;
+		return quantile(dist,p);
+	else
+		return 0;
 }
 
 

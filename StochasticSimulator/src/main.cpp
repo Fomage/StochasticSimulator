@@ -16,6 +16,15 @@
 
 using namespace std;
 
+double rampe(double x){
+	if(x<0)
+		return 0;
+	else if(x<1)
+		return x;
+	else
+		return 1;
+}
+
 int main() {
 	srand(time(NULL));
 
@@ -38,6 +47,9 @@ int main() {
 	vector<int*> trace=mySim.getTrace();
 	for(int i=0;i<trace.size();i++)
 		cout<<*trace[i]<<endl;
+
+	//store the durations and the sates in the trace
+	//run statistical test on it
 	return 0;
 }
 

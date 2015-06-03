@@ -47,11 +47,11 @@ public:
 		int chosenExit=0;
 		double transitionTime=RandomGenerator::sample((*exits)[0]->getCdf());
 		if(transitionTime<0)
-			transitionTime=-transitionTime;
+			throw "Negative time !!!";
 		for(int i=1;i<exits->size();i++){
 			int t=RandomGenerator::sample((*exits)[i]->getCdf());
 			if(t<0)
-				t=-t;
+				throw "Negative time !";
 			if(t<transitionTime){
 				transitionTime=t;
 				chosenExit=i;

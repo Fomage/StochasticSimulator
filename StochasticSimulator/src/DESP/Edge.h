@@ -17,7 +17,7 @@ public:
 	source(source),target(target),cdf(cdf),event(event){}
 	virtual ~Edge<EventType>(){}//Warning : nothing is deleted. Everything is left to the user.
 
-	const CDF*& getCdf() const {
+	CDF*& getCdf() {
 		return cdf;
 	}
 
@@ -33,7 +33,7 @@ public:
 		this->event = event;
 	}
 
-	const Node*& getSource() const {
+	Node*& getSource(){
 		return source;
 	}
 
@@ -41,7 +41,7 @@ public:
 		this->source = source;
 	}
 
-	const Node*& getTarget() const {
+	Node*& getTarget(){
 		return target;
 	}
 

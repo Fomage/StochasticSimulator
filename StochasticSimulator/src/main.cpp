@@ -34,7 +34,10 @@ int main() {
 	myModel->getEdges().push_back(&e2);
 
 	StochasticSimulator<int> mySim(myModel);
-	cout<<"Yes !";
+	mySim.run(10);
+	vector<int*> trace=mySim.getTrace();
+	for(int i=0;i<trace.size();i++)
+		cout<<*trace[i]<<endl;
 	return 0;
 }
 

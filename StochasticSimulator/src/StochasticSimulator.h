@@ -10,6 +10,7 @@
 
 #include "DESP/DESP.h"
 #include "DESP/Step.h"
+#include "DESP/Trace.h"
 #include "RandomGenerator/RandomGenerator.h"
 #include <vector>
 #include <cstdlib>
@@ -18,14 +19,14 @@ template <class EventType> class StochasticSimulator {
 public:
 	StochasticSimulator<EventType>(DESP<EventType> *despArg){
 		desp=despArg;
-		currentTrace=vector<Step<EventType>*>();
+		currentTrace=new Trace<EventType>();
 		reset();
 	}
 	virtual ~StochasticSimulator<EventType>(){}
 
 	void reset(){//choses a new initial state AND destroys the currentTrace
 		currentTime=0;
-		currentTrace.clear();
+		currentTrace->trace.clear();
 		double total=0;
 		for(int i=0;i<desp->getNodes().size();i++){
 			total+=(desp->getNodes()[i])->getInitialState();
@@ -60,7 +61,7 @@ public:
 		}
 
 		Step<EventType> *newStep = new Step<EventType>(currentTime,currentTime+transitionTime,(*exits)[chosenExit]);
-		currentTrace.push_back(newStep);
+		currentTrace->trace.push_back(newStep);
 		currentTime+=transitionTime;
 		currentState=(*exits)[chosenExit]->getTarget();
 	}
@@ -77,7 +78,7 @@ public:
 		}
 	}
 
-	std::vector<Step<EventType>*>& getTrace(){
+	Trace<EventType>* getTrace(){
 		return currentTrace;
 	}
 
@@ -89,7 +90,7 @@ private:
 	DESP<EventType>* desp;
 	double currentTime;
 	Node* currentState;
-	vector<Step<EventType>*> currentTrace;
+	Trace<EventType>* currentTrace;
 };
 
 #endif /* STOCHASTICSIMULATOR_H_ */

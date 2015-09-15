@@ -44,9 +44,9 @@ int main() {
 
 	StochasticSimulator<int> mySim(myModel);
 	mySim.run(10);
-	vector<int*> trace=mySim.getTrace();
+	vector<Step<int>*> trace=mySim.getTrace();
 	for(int i=0;i<trace.size();i++)
-		cout<<*trace[i]<<endl;
+		cout<<*(trace[i]->getEdge()->getEvent())<<endl;
 
 	//store the durations and the sates in the trace
 	//run statistical test on it

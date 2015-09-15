@@ -9,6 +9,7 @@
 #define STOCHASTICSIMULATOR_H_
 
 #include "DESP/DESP.h"
+#include "DESP/Step.h"
 #include "RandomGenerator/RandomGenerator.h"
 #include <vector>
 #include <cstdlib>
@@ -17,7 +18,7 @@ template <class EventType> class StochasticSimulator {
 public:
 	StochasticSimulator<EventType>(DESP<EventType> *despArg){
 		desp=despArg;
-		currentTrace=vector<EventType*>();
+		currentTrace=vector<Step<EventType>*>();
 		reset();
 	}
 	virtual ~StochasticSimulator<EventType>(){}
@@ -40,25 +41,26 @@ public:
 	}
 
 	void step(){
-		vector<Edge<int>*> *exits=desp->getTransitions(currentState);
+		vector<Edge<EventType>*> *exits=desp->getTransitions(currentState);
 		if(exits->empty())
 			throw "Deadlock state reached.";
 		//choose a transition : the lowest transition time
 		int chosenExit=0;
 		double transitionTime=RandomGenerator::sample((*exits)[0]->getCdf());
 		if(transitionTime<0)
-			throw "Negative time !!!";
+			throw "Negative transition time !!!";
 		for(int i=1;i<exits->size();i++){
 			int t=RandomGenerator::sample((*exits)[i]->getCdf());
 			if(t<0)
-				throw "Negative time !";
+				throw "Negative transition time !!!";
 			if(t<transitionTime){
 				transitionTime=t;
 				chosenExit=i;
 			}
 		}
 
-		currentTrace.push_back((*exits)[chosenExit]->getEvent());
+		Step<EventType> *newStep = new Step<EventType>(currentTime,currentTime+transitionTime,(*exits)[chosenExit]);
+		currentTrace.push_back(newStep);
 		currentTime+=transitionTime;
 		currentState=(*exits)[chosenExit]->getTarget();
 	}
@@ -75,7 +77,7 @@ public:
 		}
 	}
 
-	vector<EventType*>& getTrace(){
+	std::vector<Step<EventType>*>& getTrace(){
 		return currentTrace;
 	}
 
@@ -87,7 +89,7 @@ private:
 	DESP<EventType>* desp;
 	double currentTime;
 	Node* currentState;
-	vector<EventType*> currentTrace;
+	vector<Step<EventType>*> currentTrace;
 };
 
 #endif /* STOCHASTICSIMULATOR_H_ */
